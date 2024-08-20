@@ -1,23 +1,29 @@
-import {useState} from "react";
-export default function Form(todos, setTodos) {
-
-  const [todo, setTodo] = useState("");
+import styles from "./form.module.css";
+import { useState } from "react";
+export default function Form({ todos, setTodos }) {
+  // const [todo, setTodo] = useState("");
+  const [todo, setTodo] = useState({ name: "", done: false });
 
   function handleSubmit(e) {
     e.preventDefault();
     setTodos([...todos, todo]);
-    setTodo("");
+    setTodo({name:"", done:false});
   }
 
-
   return (
-    <form onSubmit={handleSubmit}>
-      <input
-        type="text"
-        value={todo}
-        onChange={(e) => setTodo(e.target.value)}
-      />
-      <button type="submit">Add</button>
+    <form className={styles.todoform} onSubmit={handleSubmit}>
+      <div className={styles.inputContainer}>
+        <input
+          className={styles.modernInput}
+          type="text"
+          value={todo.name}
+          // onChange={(e) => setTodo(e.target.value)}
+          onChange={(e) => setTodo({name: e.target.value, done: false})}
+        />
+        <button className={styles.modernButton} type="submit">
+          Add
+        </button>
+      </div>
     </form>
   );
 }
